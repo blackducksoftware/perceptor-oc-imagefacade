@@ -22,7 +22,8 @@ echo "$SOLR"
 oc login $OC_SERVER:8443 --username=$OC_UN --password=$OC_PW --insecure-skip-tls-verify
 oc project $OC_PROJECT
 ## Grep for and add some add'l HUB PODs - how to use $2, etc. for POD name vars?
-# Loop through the array and spit out all the projects
+# Loop through the array and spit out all the projects - we could use this array to pass in
+# Different Project/POD combos to oc cp /bin of any container -  I think
 for i in "${ARRAY_OF_NS[@]}"
 do
   echo "$i is an oc project"
