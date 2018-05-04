@@ -14,15 +14,14 @@ OC_OUT_DIR=$3
 # login to OpenShift and switch to the myhub project run oc to get PODS
 # from myhub ns grep for solr and save output as a variable
 oc login $OC_SERVER:8443 --username=$OC_UN --password=$OC_PW --insecure-skip-tls-verify
-# Get all Namespaces and stuff then into an array, trim the first line off the oc get
-ARRAY_OF_NS=(`oc get ns | cut -d ' ' -f1 | awk '{if(NR>1)print}'`)
+oc project $OC_PROJECT
 WEBAPP="$(oc get pods | grep webapp | cut -d ' ' -f1)"
 echo "$WEBAPP"
 SOLR="$(oc get pods | grep solr | cut -d ' ' -f1)"
 echo "$SOLR"
+# Get all Namespaces and stuff then into an array, trim the first line off the oc get
+ARRAY_OF_NS=(`oc get ns | cut -d ' ' -f1 | awk '{if(NR>1)print}'`)
 
-
-oc project $OC_PROJECT
 ## Grep for and add some add'l HUB PODs - how to use $2, etc. for POD name vars?
 # Loop through the array and spit out all the projects - we could use this array to pass in
 # Different Project/POD combos to oc cp /bin of any container -  I think
