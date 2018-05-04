@@ -21,7 +21,7 @@ echo "$SOLR"
 # from myhub ns grep for solr and save output as a variable
 oc login $OC_SERVER:8443 --username=$OC_UN --password=$OC_PW --insecure-skip-tls-verify
 oc project $OC_PROJECT
-## Grep for and add some add'l HUB PODs - how to use $1, $2, etc. for POD name vars?
+## Grep for and add some add'l HUB PODs - how to use $2, etc. for POD name vars?
 # Loop through the array and spit out all the projects
 for i in "${ARRAY_OF_NS[@]}"
 do
@@ -34,8 +34,8 @@ done
 oc cp $OC_PROJECT/$WEBAPP:/bin $OC_CP_TMP
 oc cp $OC_PROJECT/$SOLR:/opt/solr/ $OC_CP_TMP
 oc cp $OC_PROJECT/$SOLR:/bin/ $OC_CP_TMP
-# Example?
-# oc cp $1/$2:/bin
+# Example for future
+# oc cp $1/$2:/bin $3
 
 cd /tmp && ls -l
 mkdir -p $OC_TAR_DIR
