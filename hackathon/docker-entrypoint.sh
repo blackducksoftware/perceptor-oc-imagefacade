@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 # set -e
-
+# Some hard coded shit...
 OC_SERVER="18.218.176.19"
 OC_UN="clustadm"
 OC_PW="devops123!"
@@ -14,10 +14,10 @@ OC_TAR_DIR="/temp/hackathon2018"
 oc login $OC_SERVER:8443 --username=$OC_UN --password=$OC_PW --insecure-skip-tls-verify
 oc project $OC_PROJECT
 ## Grep for and add some add'l HUB PODs - how to use $1, $2, etc. for POD name vars?
-
 # Get all Namespaces and stuff into an array, trim the first line off the oc get
-ARRAY_OF_NS=(`oc get ns | cut -d ' ' -f1 | awk '{if(NR>1)print}'`})
+ARRAY_OF_NS=(`oc get ns | cut -d ' ' -f1 | awk '{if(NR>1)print}'`)
 # Loop through the array and spit out all the projects
+# Could be super useful instead of hard coding solr and webapp
 for i in "${ARRAY_OF_NS[@]}"
 do
   echo "$i is an oc project"
@@ -44,7 +44,6 @@ oc cp $OC_PROJECT/$SOLR:/opt/solr/ $OC_CP_TMP
 oc cp $OC_PROJECT/$SOLR:/bin/ $OC_CP_TMP
 # Example?
 # oc cp $1/$2:/bin
-
 
 cd /tmp && ls -l
 mkdir -p $OC_TAR_DIR
