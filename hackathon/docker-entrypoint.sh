@@ -5,6 +5,7 @@ set -x
 OC_SERVER="18.218.176.19"
 OC_UN="clustadm"
 OC_PW="devops123!"
+# We could set the below variable OC_PROJECT via the ARRAY_OF_NS and the for loop below it possibly
 OC_PROJECT="myhub"
 OC_CP_TMP="/tmp"
 OC_TAR_DIR="/temp/hackathon2018"
@@ -22,9 +23,13 @@ do
   echo "$i is an oc project"
 done
 
+# Namespaces variable
 NS=$1
+# POD variable
 PODS=$2
+# What directory to output tarball
 OC_OUT_DIR=$3
+# Some hard coded containers...
 WEBAPP="$(oc get pods | grep webapp | cut -d ' ' -f1)"
 echo "$WEBAPP"
 SOLR="$(oc get pods | grep solr | cut -d ' ' -f1)"
