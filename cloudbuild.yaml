@@ -1,0 +1,17 @@
+steps:
+
+# Mock Image Facade
+
+- name: 'gcr.io/cloud-builders/go'
+  args: ['build', '-o', './dockerless_image_facade', './cmd/dockerless/dockerless_image_facade.go']
+  env:
+  - 'PROJECT_ROOT=github.com/blackducksoftware/dockerless-image-facade'
+  - 'CGO_ENABLED=0'
+  - 'GOOS=linux'
+  - 'GOARCH=amd64'
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/blackducksoftware/mockimagefacade:$BRANCH_NAME', './']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/blackducksoftware/mockimagefacade:$BRANCH_NAME']
