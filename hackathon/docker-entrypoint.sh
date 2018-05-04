@@ -16,14 +16,12 @@ oc project $OC_PROJECT
 
 # Get all Namespaces and stuff into an array, trim the first line off the oc get
 ARRAY_OF_NS=(`oc get ns | cut -d ' ' -f1 | awk '{if(NR>1)print}'`})
-# get length of an array
-arraylength=${#array[@]}
-
-# use for loop to read all values and indexes
-for (( i=1; i<${arraylength}+1; i++ ));
+# Loop through the array and spit out all the projects
+for i in "${ARRAY_OF_NS[@]}"
 do
-  echo $i " / " ${arraylength} " : " ${array[$i-1]}
+  echo "$i is an oc project"
 done
+
 NS=$1
 PODS=$2
 OC_OUT_DIR=$3
