@@ -1,9 +1,11 @@
 #!/bin/bash
 # set -e
 
+export OC_SERVER="18.218"
+export OC_SERVER="${OC_SERVER}.176.19"
+export OC_UN="clustadm"
+
 function defaults() {
-  export OC_SERVER="18.218.176.19"
-  export OC_UN="clustadm"
   export OC_PW="devops123!"
   export OC_CP_TMP="/tmp/hackathon2018_tmp/"
   export OC_TAR_DIR="/tmp/hackathon2018"
