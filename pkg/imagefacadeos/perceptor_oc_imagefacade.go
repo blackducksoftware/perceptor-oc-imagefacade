@@ -54,13 +54,14 @@ func NewOcImagefacade() *OcImagefacade {
 					"clustadm",
 					"devops123!",
 					getImage.Image.DockerPullSpec(),
-					"/tmp",
-					"/tmp/hackathon2018")
-				sourcePath := "/temp/hackathon2018"
-				err := copyFile(sourcePath, getImage.Image.DockerTarFilePath())
-				if err != nil {
+					"/tmp/images_scratch",
+					getImage.Image.DockerTarFilePath())
+				stat, err := os.Stat(getImage.Image.DockerTarFilePath())
+				if os.IsNotExist(err) {
+					fmt.Println(fmt.Sprintf("FAILURE. %v %v ", err, getImage.Image.DockerTarFilePath()))
 					getImage.Continuation(common.ImageStatusDone)
 				} else {
+					fmt.Println(fmt.Sprintf("SUCCESS. image is stored : %v %v", getImage.Image.DockerTarFilePath(), stat.Size()))
 					getImage.Continuation(common.ImageStatusError)
 				}
 			}

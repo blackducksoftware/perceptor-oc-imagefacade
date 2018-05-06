@@ -11,13 +11,15 @@ function defaults() {
 }
 
 function check() {
-  echo "CHECKING ENV VARS..."
-  if [[ "$OC_SERVER" == "" ]] ; then defaults ; fi
-  if [[ "$OC_UN" == "" ]] ; then defaults ; fi
-  if [[ "$OC_PW" == "" ]] ; then defaults ; fi
-  if [[ "$OC_CP_TMP" == "" ]] ; then defaults ; fi
-  if [[ "$OC_TAR_DIR" == "" ]] ; then defaults ; fi
-  if [[ "$SHA" == "" ]] ; then defaults ; fi
+  echo "CHECKING ENV VARS... will exit if they aren't all set."
+  if [[ "$OC_SERVER" == "" ]] ; then exit 33 ; fi
+  if [[ "$OC_UN" == "" ]] ; then exit 33 ; fi
+  if [[ "$OC_PW" == "" ]] ; then exit 33 ; fi
+  if [[ "$OC_CP_TMP" == "" ]] ; then exit 33 ; fi
+  if [[ "$OC_TAR_DIR" == "" ]] ; then exit 33 ; fi
+  if [[ "$SHA" == "" ]] ; then exit 33 ; fi
+
+  mkdir -p $OC_CP_TMP
   oc login $OC_SERVER:8443 --username=$OC_UN --password=$OC_PW --insecure-skip-tls-verify
 }
 
@@ -52,15 +54,14 @@ function scrapePodIntoFolder() {
   oc cp $ns/$pod:/var $OC_CP_TMP
   oc cp $ns/$pod:/opt/solr/ $OC_CP_TMP
   oc cp $ns/$pod:/opt/ $OC_CP_TMP
-
+  echo "...attempt to list root container contents for debugging later..."
+  oc exec -t -i $pod -n $ns -- ls -altrh
   echo "all done scraping to $OC_CP_TMP, found `ls -altrh $OC_CP_TMP`"
 }
 
 function saveFolderToTar() {
   pushd $OC_CP_TMP && ls -l
-    mkdir -p $OC_TAR_DIR
-    chmod 777 $OC_TAR_DIR
-    tar -cvf $OC_TAR_DIR/image.tar ./
+    tar -cvf $OC_TAR_DIR ./
   popd
 }
 
@@ -68,6 +69,6 @@ check
 setImageInfo
 scrapePodIntoFolder
 saveFolderToTar
-echo "***************** SCRAPE CONTENTS **********************"
-tar -tvf $OC_TAR_DIR/image.tar
+echo "***************** DEBUG INFO FOR SCRAPE CONTENTS **********************"
+tar -tvf $OC_TAR_DIR
 echo "***************** END SCRAPE CONTENTS ******************"
