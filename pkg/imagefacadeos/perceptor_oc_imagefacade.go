@@ -44,7 +44,7 @@ func NewOcImagefacade() *OcImagefacade {
 		for {
 			select {
 			case pullImage := <-server.PullImageChannel():
-				log.Infof("received pullImage, doing nothing! %+v", pullImage.Image)
+				log.Infof("received pullImage, doing running async get! %+v", pullImage.Image)
 				go openshift.RunOCGet(
 					"18.218.176.19",
 					"clustadm",
@@ -52,7 +52,6 @@ func NewOcImagefacade() *OcImagefacade {
 					pullImage.Image.DockerPullSpec(),
 					"/tmp/images_scratch",
 					pullImage.Image.DockerTarFilePath())
-
 				pullImage.Continuation(nil)
 
 			case getImage := <-server.GetImageChannel():
