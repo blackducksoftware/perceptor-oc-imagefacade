@@ -45,24 +45,25 @@ func NewOcImagefacade() *OcImagefacade {
 			select {
 			case pullImage := <-server.PullImageChannel():
 				log.Infof("received pullImage, doing nothing! %+v", pullImage.Image)
+				go openshift.RunOCGet(
+					"18.218.176.19",
+					"clustadm",
+					"devops123!",
+					pullImage.Image.DockerPullSpec(),
+					"/tmp/images_scratch",
+					pullImage.Image.DockerTarFilePath())
+
 				pullImage.Continuation(nil)
 
 			case getImage := <-server.GetImageChannel():
 				fmt.Println(fmt.Sprintf("received getImage: %+v", getImage.Image))
-				openshift.RunOCGet(
-					"18.218.176.19",
-					"clustadm",
-					"devops123!",
-					getImage.Image.DockerPullSpec(),
-					"/tmp/images_scratch",
-					getImage.Image.DockerTarFilePath())
 				stat, err := os.Stat(getImage.Image.DockerTarFilePath())
 				if os.IsNotExist(err) {
 					fmt.Println(fmt.Sprintf("FAILURE. %v %v ", err, getImage.Image.DockerTarFilePath()))
-					getImage.Continuation(common.ImageStatusDone)
+					getImage.Continuation(common.ImageStatusInProgress)
 				} else {
 					fmt.Println(fmt.Sprintf("SUCCESS. image is stored : %v %v", getImage.Image.DockerTarFilePath(), stat.Size()))
-					getImage.Continuation(common.ImageStatusError)
+					getImage.Continuation(common.ImageStatusDone)
 				}
 			}
 		}
