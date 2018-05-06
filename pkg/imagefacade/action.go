@@ -21,7 +21,7 @@ under the License.
 
 package imagefacade
 
-import "github.com/blackducksoftware/dockerless-image-facade/pkg/common"
+import "github.com/blackducksoftware/perceptor-oc-imagefacade/pkg/common"
 
 type Action interface {
 	apply(model *Model)

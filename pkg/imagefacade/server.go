@@ -28,8 +28,8 @@ import (
 	"net/http"
 	"sync"
 
-	api "github.com/blackducksoftware/dockerless-image-facade/pkg/api"
-	common "github.com/blackducksoftware/dockerless-image-facade/pkg/common"
+	api "github.com/blackducksoftware/perceptor-oc-imagefacade/pkg/api"
+	common "github.com/blackducksoftware/perceptor-oc-imagefacade/pkg/common"
 	"github.com/prometheus/client_golang/prometheus"
 	log "github.com/sirupsen/logrus"
 )

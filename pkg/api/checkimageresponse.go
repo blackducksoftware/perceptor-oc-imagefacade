@@ -21,7 +21,7 @@ under the License.
 
 package api
 
-import "github.com/blackducksoftware/dockerless-image-facade/pkg/common"
+import "github.com/blackducksoftware/perceptor-oc-imagefacade/pkg/common"
 
 type CheckImageResponse struct {
 	PullSpec    string

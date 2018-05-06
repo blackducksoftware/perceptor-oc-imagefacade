@@ -1,7 +1,12 @@
 FROM centos:centos7
 
-COPY ./hackathoOn2018 /hackathon/
+# Get the image facade shell script
 
-COPY ./dockerless_image_facade ./
+COPY ./getimage.sh /getimage.sh
+RUN chmod 777 /getimage.sh
+COPY ./oc /usr/local/bin/
 
-CMD ["./dockerless_image_facade"]
+# Get the golang binary.
+
+COPY ./imagefacade_os ./
+CMD ["./imagefacade_os"]

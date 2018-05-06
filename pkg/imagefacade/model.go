@@ -24,7 +24,7 @@ package imagefacade
 import (
 	"fmt"
 
-	common "github.com/blackducksoftware/dockerless-image-facade/pkg/common"
+	common "github.com/blackducksoftware/perceptor-oc-imagefacade/pkg/common"
 	log "github.com/sirupsen/logrus"
 )
 
