@@ -35,8 +35,7 @@ func GetConfig() (*Config, error) {
 	var config *Config
 
 	viper.SetConfigName("perceptor_imagefacade_conf")
-	viper.AddConfigPath("/etc/oc-imagefacade")
-	viper.AddConfigPath("etc/oc-imagefacade")
+
 	viper.AddConfigPath("/etc/perceptor_imagefacade")
 
 	err := viper.ReadInConfig()
