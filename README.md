@@ -18,7 +18,9 @@ images that your interested in.
 
 - You now should be able to see your custom image facade being called by the perceptor scanner container!
 
-## The implementation
+# This repository is just a simple example of how to implement an image facade.  It is not a product nor something we recommend running in a production environment.
+
+## The implementation in this repo
 
 In this example, we actually use an openshift client to copy (using oc cp) specific
 
