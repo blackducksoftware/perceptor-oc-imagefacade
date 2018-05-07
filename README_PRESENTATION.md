@@ -35,6 +35,13 @@ This should kick off an image pull in your image facade.
 {"PullSpec":"sha256:a1eb671e9f35b284c4f22","ImageStatus":2}%
 ```
 
+In your image facade logs, you should see something like this:
+
+```
+received getImage: &{PullSpec:sha256:a1eb671e9f35b284c4f22}
+SUCCESS. image is stored : /var/images/sha256:a1eb671e9f35b284c4f22.tar 5120
+```
+
 # Testing in Openshift
 
 Use an image-registry.json file such as this, with the only change being in the perceptor-imagefacade stanza.
