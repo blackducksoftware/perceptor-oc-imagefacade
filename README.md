@@ -1,3 +1,7 @@
+# TL;DR 
+
+Check out the tutorial here https://github.com/blackducksoftware/perceptor-oc-imagefacade/blob/master/README_PRESENTATION.md if your in a hurry to dive in.
+
 # A Dockerless Image Facade for OpsSight Connector.
 
 This is an example of an image facade plugin to the OpsSight Connector product from Blackduck. 
