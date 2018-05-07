@@ -1,6 +1,11 @@
-# A Dockerless Image Facade for Blackduck Perceptor 
+# A Dockerless Image Facade for OpsSight Connector.
 
-This is an example of an image facade plugin to the blackduck perceptor framework.
+This is an example of an image facade plugin to the OpsSight Connector product from Blackduck. 
+OpsSight connector is the downstream supported version of the blackduck perceptor framework for cloud native container analysis and scanning.
+
+For more information on how this project fits into the broader perceptor project, see https://github.com/blackducksoftware/perceptor-scanner .
+
+For more information on the perceptor project, 
 
 To use it, you can customize the mockimagefacade.go class with logic specific to the
 
